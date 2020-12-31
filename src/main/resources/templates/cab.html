@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/media.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+</head>
+<body>
+<div class="container">
+    <div class="background light">
+        <div th:replace="basic_inc/header :: header"></div>
+        <main>
+            <div class="user-hello">Вітаємо, <strong><span th:text="${user.lastName}"></span> <span th:text="${user.firstName}"></span></strong> ! Ми раді Вас бачити!</div>
+            <div class="tickets-table avia user">
+                <button class="nav-link user-btn" onclick="openSearch(event,'orders')"  id="default">Мої замовлення</button>
+                <button class="nav-link user-btn" onclick="openSearch(event,'buyer-data')">Дані покупця</button>
+                <button class="nav-link user-btn" onclick="openSearch(event,'passenger-data')">Дані пасажирів</button>
+                <button class="nav-link user-btn" onclick="openSearch(event,'bonus')">Мої бонуси</button>
+            </div>
+            <div class="background dark user">
+                <div id="orders" class="tabcontent user">
+                    <div class="choice-heading user">Мої замовлення</div>
+                    <div class="ticket-hotel user" th:each="a_ticket : ${avia_ticket}">
+                        <div class="status">
+                            <div class="ticket-number"><strong>№ <span th:text="${a_ticket.id}"></span></strong></div>
+                            <div class="ticket-status">
+                                <img src="images/icons/status-red.svg">
+                                <span th:text="${a_ticket.ticketStatus}"></span>
+                            </div>
+                            <!--div class="ticket-status"  th:if="${ticket.ticketStatus == 'PAID'}">
+                                <img src="images/icons/status-red.svg">
+                                <span>Оплачено</span>
+                            </div>-->
+                            <div class="ticket-small"></div>
+                        </div>
+                        <div class="ticket-info-profile" th:each="avia : ${avia_trips}">
+                            <div class="ticket-number"><strong>015K</strong></div>
+                            <div class="ticket-status dest" ><span th:text="${avia.fromWhere}"></span> →  <span th:text="${avia.whereTo}"></span> <span th:text="${avia.departureDate}"></span> <span th:text="${avia.departureTime}"></span></div>
+                        </div>
+                        <div class="price-profile">
+                            <div class="ticket-small">1 місце</div>
+                            <div class="ticket-zhd-price">₴ <span th:text="${a_ticket.ticketPrice}"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-hotel user" th:each="railway_ticket : ${railway_ticket}">
+                        <div class="status">
+                            <div class="ticket-number"><strong>№ <span th:text="${railway_ticket.id}"></span></strong></div>
+                            <div class="ticket-status">
+                                <img src="images/icons/status-red.svg">
+                                <span th:text="${railway_ticket.ticketStatus}"></span>
+                            </div>
+                            <div class="ticket-small"></div>
+                        </div>
+                        <div class="ticket-info-profile" th:each="railway : ${railway_trips}">
+                            <div class="ticket-number"><strong>015K</strong></div>
+                            <div class="ticket-status dest" ><span th:text="${railway.fromWhere}"></span> →  <span th:text="${railway.whereTo}"></span> <span th:text="${railway.departureDate}"></span> <span th:text="${railway.departureTime}"></span></div>
+                        </div>
+                        <div class="price-profile">
+                            <div class="ticket-small">1 місце</div>
+                            <div class="ticket-zhd-price">₴ <span th:text="${railway_ticket.ticketPrice}"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-hotel user" th:each="bus_ticket : ${bus_ticket}">
+                        <div class="status">
+                            <div class="ticket-number"><strong>№ <span th:text="${bus_ticket.id}"></span></strong></div>
+                            <div class="ticket-status">
+                                <img src="images/icons/status-red.svg">
+                                <span th:text="${bus_ticket.ticketStatus}"></span>
+                            </div>
+                            <div class="ticket-small"></div>
+                        </div>
+                        <div class="ticket-info-profile" th:each="bus : ${bus_trips}">
+                            <div class="ticket-number"><strong>015K</strong></div>
+                            <div class="ticket-status dest" ><span th:text="${bus.fromWhere}"></span> →  <span th:text="${bus.whereTo}"></span> <span th:text="${bus.departureDate}"></span> <span th:text="${bus.departureTime}"></span></div>
+                        </div>
+                        <div class="price-profile">
+                            <div class="ticket-small">1 місце</div>
+                            <div class="ticket-zhd-price">₴ <span th:text="${bus_ticket.ticketPrice}"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="ticket-hotel user" th:each="hotel : ${hotel}">
+                        <div class="status">
+                            <div class="ticket-number"><strong>№ <span th:text="${hotel.id}"></span></strong></div>
+                            <div class="ticket-status">
+                                <img src="images/icons/status-green.svg">
+                                <span th:text="${hotel.ticketStatus}"></span>
+                            </div>
+                            <div class="ticket-small" ></div>
+                        </div>
+                        <div class="ticket-info-profile" th:each="h : ${hotels}">
+                            <div class="ticket-number"><strong>015K</strong></div>
+                            <div class="ticket-status dest"><span th:text="${h.city}"></span> → <span th:text="${h.hotelName}"></span> <span th:text="${h.departureDate}"></span></div>
+                        </div>
+                        <div class="price-profile">
+                            <div class="ticket-small">1 місце</div>
+                            <div class="ticket-zhd-price">₴ <span th:text="${hotel.hotelPrice}"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="buyer-data" class="tabcontent user">
+                    <div class="choice-heading user">Дані покупця</div>
+                    <form th:action="@{/cab_update}" method="post" class="user-form">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email"
+                                   class="form-account"
+                                   name="email"
+                                   th:value="${user.email}"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label>Прізвище</label>
+                            <input type="text"
+                                   class="form-account"
+                                   name="lastName"
+                                   th:value="${user.lastName}"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ім'я</label>
+                            <input type="text"
+                                   class="form-account"
+                                   name="firstName"
+                                   th:value="${user.firstName}"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label>Логін</label>
+                            <input type="text"
+                                   class="form-account"
+                                   name="username"
+                                   th:value="${user.username}"
+                                   required>
+                        </div>
+                        <input type="submit" value="Редагувати" class="save-btn user">
+                    </form>
+                </div>
+                <div id="passenger-data" class="tabcontent user">
+                    <div class="choice-heading user">Пасажири</div>
+                    <table class="data-table">
+                        <tr>
+                            <th>Пасажир</th>
+                            <th>Сервіс</th>
+                            <th>Стать</th>
+                            <th>Дата народження</th>
+                            <th>Громадянство</th>
+                            <th>Документ</th>
+                            <th>Змінити / Видалити</th>
+                        </tr>
+                        <tr>
+                            <td>Петров Іван</td>
+                            <td>Залізничні квитки</td>
+                            <td>Ч</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>Студентський: КВ1545450</td>
+                            <td class="edit-section">
+                                <a href="#"><img src="images/icons/edit.svg"></a>
+                                <a href="#"><img src="images/icons/delete.svg"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="bonus" class="tabcontent user">
+                    <div class="choice-heading user">Мої бонуси</div>
+                    <div class="user-bonus">
+                        <div class="balance">Ваш поточний баланс:
+                            <span>0 бонусів</span>
+                            ≈
+                            <span>0 UAH</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div th:replace="basic_inc/footer_main :: footer_main"></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/script/script.js"></script>
+</html>

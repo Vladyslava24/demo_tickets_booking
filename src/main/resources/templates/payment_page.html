@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tickets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/media.css">
+</head>
+<body>
+<div class="container">
+    <div class="background light">
+        <div th:replace="basic_inc/header :: header"></div>
+        <main>
+            <div class="tickets-info booking">
+                <img src="images/icons/zhd.svg">
+                <div class="search-info">
+                    <span><span th:text="${trip.fromWhere}"></span> → <span th:text="${trip.whereTo}"></span></span>
+                    <span th:text="${trip.departureDate}"></span>
+                </div>
+                <a href="/" class="change-search-btn">Змінити умови пошуку</a>
+            </div>
+            <div class="background dark">
+                <div class="tickets booking">
+                    <div class="ticket-zhd">
+                        <img src="images/icons/ukrzaliz.svg">
+                        <div class="ticket-zhd-info">
+                            <div th:text="${trip.tripName}"></div>
+                            <div class="ticket-small"><span th:text="${trip.fromWhere}"></span> → <span th:text="${trip.whereTo}"></span></div>
+                            <a href="#" class="change-search-btn route">Маршрут поїзда</a>
+                        </div>
+                        <div class="ticket-time-date">
+                            <div th:text="${trip.departureTime}"></div>
+                            <div class="ticket-small" th:text="${trip.departureDate}"></div>
+                        </div>
+                        <div class="ticket-timeline">
+                            <span><span th:text="${trip.durationHours}"></span> год. <span th:text="${trip.durationMinutes}"></span> хв.</span>
+                        </div>
+                        <div class="ticket-time-date">
+                            <div th:text="${trip.arrivalTime}"></div>
+                            <div class="ticket-small" th:text="${trip.arrivalDate}"></div>
+                        </div>
+                        <div class="ticket-zhd-price">Від ₴ <span th:text="${trip.price}"></span></div>
+                        <div class="ticket-zhd-type">Сидячий</div>
+                        <a href="#" class="ticket-choose-btn booking">Вибрати</a>
+                    </div>
+                    <form>
+                        <div class="choice zhd">
+                            <div class="choice-heading">Виберіть вагон і місце</div>
+                            <div class="choice-wagon">
+                                <div class="choice-info zhd">
+                                    <div class="ticket-small choice">Купе - Фірмовий</div>
+                                    <div class="ticket-zhd-price">Від ₴ 375</div>
+                                </div>
+                                <div class="vagon-btn-section">
+                                    <button class="nav-link vagon-btn" onclick="openSearch(event,'first')" id="default">
+                                        <div class="vagon-number">
+                                            <div>Вагон</div>
+                                            <div>3</div>
+                                        </div>
+                                        <img src="images/icons/wagon.svg">
+                                        <div class="vagon-info">
+                                            <div class="vagon-seats">
+                                                <div>Місць</div>
+                                                <div>3</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <button class="nav-link vagon-btn" onclick="openSearch(event,'second')">
+                                        <div class="vagon-number">
+                                            <div>Вагон</div>
+                                            <div>5</div>
+                                        </div>
+                                        <img src="images/icons/wagon.svg">
+                                        <div class="vagon-info">
+                                            <div class="vagon-seats">
+                                                <div>Місць</div>
+                                                <div>10</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tabcontent choice-seats" id="first">
+                                <div class="seats-info">3 вагон, 3 вільних місць</div>
+                                <div class="vagon-seats">
+                                    <div class="wc">WC</div>
+                                    <img src="images/icons/staff.svg">
+                                    <div class="compartment">
+                                        <button class="compartment-btn">1</button>
+                                        <button class="compartment-btn">3</button>
+                                        <button class="compartment-btn">2</button>
+                                        <button class="compartment-btn">4</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">5</button>
+                                        <button class="compartment-btn">7</button>
+                                        <button class="compartment-btn">6</button>
+                                        <button class="compartment-btn">8</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">9</button>
+                                        <button class="compartment-btn">11</button>
+                                        <button class="compartment-btn">10</button>
+                                        <button class="compartment-btn">12</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">13</button>
+                                        <button class="compartment-btn">15</button>
+                                        <button class="compartment-btn">14</button>
+                                        <button class="compartment-btn">16</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">17</button>
+                                        <button class="compartment-btn">19</button>
+                                        <button class="compartment-btn">18</button>
+                                        <button class="compartment-btn">20</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">21</button>
+                                        <button class="compartment-btn">23</button>
+                                        <button class="compartment-btn">22</button>
+                                        <button class="compartment-btn">24</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">25</button>
+                                        <button class="compartment-btn">27</button>
+                                        <button class="compartment-btn">26</button>
+                                        <button class="compartment-btn">28</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">29</button>
+                                        <button class="compartment-btn">31</button>
+                                        <button class="compartment-btn">30</button>
+                                        <button class="compartment-btn">32</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">33</button>
+                                        <button class="compartment-btn">35</button>
+                                        <button class="compartment-btn">34</button>
+                                        <button class="compartment-btn">36</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">37</button>
+                                        <button class="compartment-btn">39</button>
+                                        <button class="compartment-btn">38</button>
+                                        <button class="compartment-btn">40</button>
+                                    </div>
+                                    <div class="wc">WC</div>
+                                </div>
+                            </div>
+                            <div class="tabcontent choice-seats" id="second">
+                                <div class="seats-info">5 вагон, 10 вільних місць</div>
+                                <div class="vagon-seats">
+                                    <div class="wc">WC</div>
+                                    <img src="images/icons/staff.svg">
+                                    <div class="compartment">
+                                        <button class="compartment-btn">1</button>
+                                        <button class="compartment-btn">3</button>
+                                        <button class="compartment-btn">2</button>
+                                        <button class="compartment-btn">4</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">5</button>
+                                        <button class="compartment-btn">7</button>
+                                        <button class="compartment-btn">6</button>
+                                        <button class="compartment-btn">8</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">9</button>
+                                        <button class="compartment-btn">11</button>
+                                        <button class="compartment-btn">10</button>
+                                        <button class="compartment-btn">12</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">13</button>
+                                        <button class="compartment-btn">15</button>
+                                        <button class="compartment-btn">14</button>
+                                        <button class="compartment-btn">16</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">17</button>
+                                        <button class="compartment-btn">19</button>
+                                        <button class="compartment-btn">18</button>
+                                        <button class="compartment-btn">20</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">21</button>
+                                        <button class="compartment-btn">23</button>
+                                        <button class="compartment-btn">22</button>
+                                        <button class="compartment-btn">24</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">25</button>
+                                        <button class="compartment-btn">27</button>
+                                        <button class="compartment-btn">26</button>
+                                        <button class="compartment-btn">28</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">29</button>
+                                        <button class="compartment-btn">31</button>
+                                        <button class="compartment-btn">30</button>
+                                        <button class="compartment-btn">32</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">33</button>
+                                        <button class="compartment-btn">35</button>
+                                        <button class="compartment-btn">34</button>
+                                        <button class="compartment-btn">36</button>
+                                    </div>
+                                    <div class="compartment">
+                                        <button class="compartment-btn">37</button>
+                                        <button class="compartment-btn">39</button>
+                                        <button class="compartment-btn">38</button>
+                                        <button class="compartment-btn">40</button>
+                                    </div>
+                                    <div class="wc">WC</div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="client-type">
+
+                        <form  th:action="@{/find_one_railway_trip{id}(id=${trip.id})}" method="post" th:object="${newTicket}">
+                            <div class="new-client">
+                                <div class="client-type-heading">Я новий клієнт</div>
+                                <div class="client-form">
+                                    <div class="form-group">
+                                        <input type="email"
+                                               class="form-account"
+                                               id="exampleInputEmail1"
+                                               th:field="*{email}"
+                                               placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text"
+                                               class="form-account"
+                                               id="examplePhoneNumber"
+                                               th:field="*{phoneNumber}"
+                                               placeholder="Номер телефону">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Прізвище</label>
+                                        <input type="text"
+                                               class="form-account"
+                                               placeholder="Петров"
+                                               th:field="*{lastName}"
+                                        >
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ім'я</label>
+                                        <input type="text"
+                                               class="form-account"
+                                               placeholder="Іван"
+                                               th:field="*{firstName}"
+                                        >
+                                    </div>
+                                </div>
+
+                                    <div class="form-info">На зазначений у цьому полі email буде відправлений лист із підтвердженням бронювання</div>
+                                </div>
+                            </div>
+                            <div class="registered-client">
+                                <div class="login-form">
+                                    <div class="client-type-heading">Я постійний клієнт</div>
+                                    <div class="choice-btn-block">
+                                        <a href="#" class="choice-btn">Увійти</a>
+                                    </div>
+                                </div>
+                                <div class="login-form">
+                                    <div class="client-type-heading">Увійти через соцмережі:</div>
+                                    <div class="social-media">
+                                        <nav>
+                                            <a href="#">
+                                                <img src="images/icons/social media/facebook-dark.svg">
+                                            </a>
+                                            <a href="#">
+                                                <img src="images/icons/social media/instagram-dark.svg">
+                                            </a>
+                                            <a href="#">
+                                                <img src="images/icons/social media/telegram-dark.svg">
+                                            </a>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <div class="form-info">Ваші дані будуть завантажені автоматично, і ви зможете швидше оформити замовлення</div>
+                            </div>
+                            <div class="passenger-data">
+                                <div class="choice-heading">Дані пасажирів</div>
+                                <div class="choice-pass-info">Пасажир 1: Вагон 3 Місце 18</div>
+                                <div class="passenger-type">
+                                    <!--<button class="pass-type-choice active" onclick="openPassenger(event,'adult')" id="default2">
+                                        <img src="images/icons/adult.svg">
+                                        <div class="type-text">Дорослий</div>
+                                    </button>
+                                    <button class="pass-type-choice" onclick="openPassenger(event,'children')">
+                                        <img src="images/icons/children.svg">
+                                        <div class="type-text">Дитина до 14 років</div>
+                                    </button>
+                                    <button class="pass-type-choice" onclick="openPassenger(event,'student')">
+                                        <img src="images/icons/student.svg">
+                                        <div class="type-text">Студент</div>
+                                    </button>-->
+                                    <input type="hidden" th:field="*{id}" required/>
+
+                                    <div class="data-form">
+                                        <div id="adult" class="tabpassenger">
+                                            <div class="form-group">
+                                                <label>Прізвище</label>
+                                                <input type="lastName"
+                                                       class="form-account"
+                                                       placeholder="Петров"
+                                                       th:field="*{lastName}"
+                                                >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Ім'я</label>
+                                                <input type="firstName"
+                                                       class="form-account"
+                                                       placeholder="Іван"
+                                                       th:field="*{firstName}"
+                                                >
+                                            </div>
+                                        </div>
+
+                                        <div id="children" class="tabpassenger">
+                                            <div class="form-group">
+                                                <label>Прізвище</label>
+                                                <input type="lastName"
+                                                       class="form-account"
+                                                       placeholder="Петров"
+                                                       th:field="*{lastName}"
+                                                >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Ім'я</label>
+                                                <input type="firstName"
+                                                       class="form-account"
+                                                       placeholder="Іван"
+                                                       th:field="*{firstName}"
+                                                >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Дата народження</label>
+                                                <input type="dateOfBirth"
+                                                       class="form-account"
+                                                       placeholder="дд.мм.рррр."
+                                                       th:field="*{birthDate}"
+                                                >
+                                            </div>
+                                        </div>
+
+                                        <div id="student" class="tabpassenger">
+                                            <div class="form-group">
+                                                <label>Прізвище</label>
+                                                <input type="lastName"
+                                                       class="form-account"
+                                                       placeholder="Петров"
+                                                       th:field="*{lastName}"
+                                                >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Ім'я</label>
+                                                <input type="firstName"
+                                                       class="form-account"
+                                                       placeholder="Іван"
+                                                       th:field="*{firstName}"
+                                                >
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Номер студентського квитка</label>
+                                                <input type="idCard"
+                                                       class="form-account"
+                                                       placeholder="№999999999"
+                                                       th:field="*{studentCardNumber}"
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="additional-service">
+                                <div class="choice-heading">Додаткові послуги</div>
+                                <div class="box">
+                                    <input id="one" type="checkbox">
+                                    <span class="check"></span>
+                                    <label for="one">Постільна білизна</label>
+                                    <div class="ticket-small">Від ₴ 50</div>
+                                </div>
+                                <div class="box">
+                                    <input id="two" type="checkbox">
+                                    <span class="check"></span>
+                                    <label for="two">Напій</label>
+                                    <div class="ticket-small">Від ₴ 8</div>
+                                </div>
+                                <div class="box">
+                                    <input id="three" type="checkbox">
+                                    <span class="check"></span>
+                                    <label for="three">Додатковий багаж</label>
+                                    <div class="ticket-small">Апаратура, тварина, надлишок багажу</div>
+                                </div>
+                                <div class="attention"><strong>Зверніть увагу!</strong>Сумарна вартість замовлення з урахуванням додаткових послуг буде відображатися перед оплатою</div>
+                            </div>
+                            <div class="insurance">
+                                <div class="box insur">
+                                    <input id="four" type="checkbox">
+                                    <span class="check"></span>
+                                    <label for="four" class="labels"><strong>Додайте страховий поліс на час подорожі</strong> Пакет «Економ — Україна»</label>
+                                </div>
+                                <div class="ticket-small">Застрахуйте себе і своїх близьких від нещасного випадку та втрати багажу
+                                    Період дії: 14.01.2021 – 16.01.2021</div>
+                                <div class="green-boxes">
+                                    <div class="med">Медичні витрати на суму 30 000 гривень</div>
+                                    <div class="med">Страхування від нещасного випадку на суму 6 000 гривень</div>
+                                </div>
+                            </div>
+                            <div class="sms">
+                                <div class="choice-heading">SMS-нагадування</div>
+                                <div class="box insur">
+                                    <input id="five" type="checkbox">
+                                    <span class="check"></span>
+                                    <label for="five" class="labels">Ми нагадаємо вам про час відправлення і ви не запізнитесь на потяг.</label>
+                                </div>
+                            </div>
+                            <div class="bonus">
+                                <div class="choice-heading bonus-h">Детальніше про Бонусну програму</div>
+                                <div class="bonus-info">
+                                    <div class="bonus-info-sec1">
+                                        <div class="bonus-balance">Ваш поточний баланс бонусів: <strong>0</strong></div>
+                                        <button class="button-more">Дізнатися більше</button>
+                                    </div>
+                                    <div class="bonus-info-sec2">З цієї покупки ви отримаєте: 5.4 бонусів</div>
+                                </div>
+                            </div>
+                            <div class="checkout">
+                                <div class="price">Ціна <span th:text="${trip.price}"></span> UAH</div>
+                                <input type="submit" value="Оплатити" class="pay-btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </main>
+    </div>
+    <div th:replace="basic_inc/footer_main :: footer_main"></div>
+</div>
+</body>
+</html>

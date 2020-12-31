@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tickets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/media.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="background light">
+        <div th:replace="basic_inc/header :: header"></div>
+
+        <main>
+            <div class="background dark not-found-page">
+                <div class="not-found">Рейсів по вашому запиту не знайдено</div>
+                <a href="/" class="go-back-btn">Повернутися назад</a>
+            </div>
+        </main>
+    </div>
+    <div th:replace="basic_inc/footer_main :: footer_main"></div>
+</div>
+</body>
+<script type="text/javascript" src="/script/script.js"></script>
+</html>

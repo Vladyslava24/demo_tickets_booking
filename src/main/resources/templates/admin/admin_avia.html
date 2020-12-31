@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Avia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/styles/media.css">
+</head>
+
+<body>
+<div class="container">
+    <main>
+        <div class="sidenav-admin">
+            <a class="logo-admin" href=""><img src="/images/icons/movie-tickets_white.svg"></a>
+            <a href="/admin/avia"><img src="/images/icons/airplane_white.svg"></a>
+            <a href="/admin/railway"><img src="/images/icons/train_white.svg"></a>
+            <a href="/admin/bus"><img src="/images/icons/bus_white.svg"></a>
+            <a href="/admin/hotel"><img src="/images/icons/review_white.svg"></a>
+        </div>
+
+        <div class="admin-body">
+            <div class="admin-yellow">
+                <div class="choice-heading">Авіа рейси</div>
+                <div class="categories-admin">
+                    <button class="nav-link active" onclick="openSearch(event,'all')" id="default">Всі рейси</button>
+                    <button class="nav-link add" onclick="openSearch(event,'add')">+</button>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <div id="all" class="tabcontent">
+                    <div class="ticket-avia" th:each="trip : ${trips}">
+                        <div class="ticket-avia-info">
+                            <img src="/images/icons/lufthansa.svg">
+                            <div class="ticket-zhd-info">
+                                <div>Рейс <span th:text="${trip.tripName}"></span></div>
+                                <div class="ticket-small">Економ-клас</div>
+                            </div>
+                            <div class="ticket-time-date">
+                                <div th:text="${trip.departureTime}"></div>
+                                <div class="ticket-small" th:text="${trip.departureDate}"></div>
+                            </div>
+                            <div class="ticket-timeline">
+                                <span><span th:text="${trip.durationHours}"></span> год. <span th:text="${trip.durationMinutes}"></span> хв.</span>
+                            </div>
+                            <div class="ticket-time-date">
+                                <div th:text="${trip.arrivalTime}"></div>
+                                <div class="ticket-small" th:text="${trip.arrivalDate}"></div>
+                            </div>
+                            <div class="ticket-zhd-type">
+                                <div class="ticket-small">Ручна поклажа</div>
+                                <div class="ticket-small">Багаж: не входить у вартість</div>
+                            </div>
+                            <a href="#" class="change-search-btn route">Детальніше про рейс</a>
+                        </div>
+                        <div class="ticket-avia-choose">
+                            <a th:href="@{/admin/edit_trip{id}(id=${trip.id})}" class="crud-btn">Редагувати</a>
+                            <a th:href="@{/admin/delete_trip{id}(id=${trip.id})}" class="crud-btn">Видалити</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="add" class="tabcontent">
+                    <form th:action="@{/admin/save_trip}" method="post" th:object="${newTrip}">
+                        <div class="admin-form">
+                            <div class="form-group">
+                                <label>Назва</label>
+                                <input type="text"
+                                       class="form-account"
+                                       placeholder="749 ІНТЕРСІТІ"
+                                       th:field="*{tripName}">
+                            </div>
+                            <div class="form-group">
+                                <label>Звідки</label>
+                                <input type="text"
+                                       class="form-account"
+                                       placeholder="Київ-Пасажирський"
+                                       th:field="*{fromWhere}">
+                            </div>
+                            <div class="form-group">
+                                <label>Куди</label>
+                                <input type="text"
+                                       class="form-account"
+                                       placeholder="Львів"
+                                       th:field="*{whereTo}">
+                            </div>
+                            <div class="form-group">
+                                <label>Дата відправлення</label>
+                                <input class="form-account" type="date" name="departure" value="2020-12-12" max="2021-12-10" min="2020-12-12">
+                            </div>
+                            <div class="form-group">
+                                <label>Час відправлення</label>
+                                <input type="text"
+                                       class="form-account"
+                                       placeholder="23:10"
+                                       th:field="*{departureTime}">
+                            </div>
+                            <div class="form-group">
+                                <label>Дата прибуття</label>
+                                <input class="form-account" type="date" name="arrival" value="2020-12-12" max="2021-12-10" min="2020-12-12">
+                            </div>
+                            <div class="form-group">
+                                <label>Час прибуття</label>
+                                <input type="text"
+                                       class="form-account"
+                                       placeholder="00:10"
+                                       th:field="*{arrivalTime}">
+                            </div>
+                            <div class="form-group">
+                                <label>Класс</label>
+                                <select name="sex" class="sex-select" th:field="*{classType}">
+                                    <option value="ECONOMY">ECONOMY</option>
+                                    <option value="BUSINESS">BUSINESS</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Годин в дорозі</label>
+                                <input type="number"
+                                       class="form-account"
+                                       placeholder="2"
+                                       th:field="*{durationHours}">
+                            </div>
+                            <div class="form-group">
+                                <label>Хвилин в дорозі</label>
+                                <input type="number"
+                                       class="form-account"
+                                       placeholder="23"
+                                       th:field="*{durationMinutes}">
+                            </div>
+                            <div class="form-group">
+                                <label>Кількість місць</label>
+                                <input type="number"
+                                       class="form-account"
+                                       placeholder="400"
+                                       th:field="*{placeAmount}">
+                            </div>
+                            <div class="form-group">
+                                <label>Ціна</label>
+                                <input type="text"
+                                       class="form-account"
+                                       placeholder="100"
+                                       th:field="*{price}">
+                            </div>
+                            <div class="form-group">
+                                <label>Тип</label>
+                                <select name="sex" class="sex-select" th:field="*{tripType}">
+                                    <option value="RAILWAY">RAILWAY</option>
+                                    <option value="BUS">BUS</option>
+                                    <option value="AVIA">AVIA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="submit" value="Зберегти" class="save-btn user">
+                </form>
+            </div>
+        </div>
+</div>
+</main>
+</div>
+</body>
+<script type="text/javascript" src="/script/script.js"></script>
+</html>

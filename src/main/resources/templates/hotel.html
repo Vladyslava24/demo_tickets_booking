@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hotel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/media.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+</head>
+<body>
+<div class="container">
+    <div class="background light">
+        <div th:replace="basic_inc/header :: header"></div>
+        <main>
+            <div class="tickets-info">
+                <img src="images/icons/Hotel.svg">
+                <div class="search-info">
+                    <span th:text="${city}"></span>
+                    <span><span th:text="${departure}"></span>/<span th:text="${arrival}"></span></span>
+                </div>
+                <a href="/" class="change-search-btn">Змінити умови пошуку</a>
+            </div>
+            <div class="background dark">
+                <div class="filter">
+                    <button class="dropbtn">
+                        <div class="filter-text">Фільтрувати</div>
+                        <img src="images/icons/Arrow filter.svg">
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">За зростанням</a>
+                        <a href="#">За датою</a>
+                        <a href="#">За часом в дорозі</a>
+                    </div>
+                </div>
+                <div class="tickets hotel">
+                    <div class="ticket-hotel" th:each="hotel : ${hotels}">
+                        <img src="images/hotel.jpg" class="hotel-pic">
+                        <div class="ticket-hotel-text">
+                            <div th:text="${hotel.hotelName}"></div>
+                            <div class="stars">
+                                <img src="images/icons/star-hotel.svg">
+                                <img src="images/icons/star-hotel.svg">
+                                <img src="images/icons/star-hotel.svg">
+                            </div>
+                            <div class="ticket-small"  th:text="${hotel.address}"></div>
+                            <div class="breakfast"  th:text="${hotel.foodType}"></div>
+                        </div>
+                        <div class="ticket-bus-choose hotel">
+                            <div class="ticket-zhd-price">Від ₴ <span  th:text="${hotel.price}"></span></div>
+                            <a th:href="@{/find_hotel{id}(id=${hotel.id})}" class="ticket-choose-btn">Вибрати</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div th:replace="basic_inc/footer_main :: footer_main"></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/script/script.js"></script>
+</html>

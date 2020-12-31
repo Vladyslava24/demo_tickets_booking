@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+
+<body>
+       <header  th:fragment="header">
+            <a href="/" class="logo_link">
+                <img src="images/icons/logo.svg">
+            </a>
+            <nav class="header-buttons account">
+                <a href="/cab" class="btn account-btn">
+                    <img src="images/icons/account%20but.svg">
+                </a>
+                <a href="#" class="menu"><img src="images/icons/menu%20dark.svg"></a>
+                <div class="menu-block">
+                    <a href="#" class="close-btn">&times;</a>
+                    <a href="#" class="menu-btn">Авіаквитки</a>
+                    <a href="#" class="menu-btn">Залізничні квитки</a>
+                    <a href="#" class="menu-btn">Автобуси</a>
+                    <a href="#" class="menu-btn">Готелі</a>
+                    <a href="#" class="btn account-btn inside_menu">
+                        <img src="images/icons/account%20but.svg">
+                    </a>
+                </div>
+            </nav>
+        </header>
+</body>
+</html>

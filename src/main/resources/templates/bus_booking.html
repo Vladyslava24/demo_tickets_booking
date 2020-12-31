@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bus Trip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/media.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+</head>
+<body>
+<div class="container">
+    <div class="background light">
+        <div th:replace="basic_inc/header :: header"></div>
+        <main>
+            <div class="tickets-info">
+                <img src="images/icons/bus.svg">
+                <div class="search-info">
+                    <span><span th:text="${trip_from}"></span> → <span th:text="${trip_to}"></span></span>
+                    <span th:text="${departure_date}"></span>
+                </div>
+                <a href="/" class="change-search-btn">Змінити умови пошуку</a>
+            </div>
+            <div class="background dark">
+                <div class="tickets booking">
+                    <div class="ticket-bus">
+                        <div class="ticket-bus-info">
+                            <div class="ticket-bus-text">
+                                <div class="ticket-time-date">
+                                    <div th:text="${trip.departureTime}"></div>
+                                    <div class="ticket-small" th:text="${trip.departureDate}"></div>
+                                </div>
+                                <div class="ticket-small descr" th:text="${trip.fromWhere}"></div>
+                            </div>
+                            <div class="ticket-timeline">
+                                <span><span th:text="${trip.durationHours}"></span> год. <span th:text="${trip.durationMinutes}"></span> хв.</span>
+                            </div>
+                            <div class="ticket-bus-text">
+                                <div class="ticket-time-date">
+                                    <div th:text="${trip.arrivalTime}"></div>
+                                    <div class="ticket-small" th:text="${trip.arrivalDate}"></div>
+                                </div>
+                                <div class="ticket-small descr"  th:text="${trip.whereTo}"></div>
+                            </div>
+                            <div class="ticket-zhd-type">
+                                <div class="ticket-small"><span th:text="${trip.placeAmount}"></span> місць</div>
+                                <a href="#" class="change-search-btn route">Детальніше про рейс</a>
+                            </div>
+                            <div class="ticket-bus-choose">
+                                <div class="ticket-zhd-price">₴ <span th:text="${trip.price}"></span></div>
+                                <a th:href="@{/find_bus_trip{id}(id=${trip.id})}" class="ticket-choose-btn">Вибрати</a>
+                            </div>
+                        </div>
+                        <div class="ticket-small company">"Володимир-Волинське АТП-10707" ПрАТ</div>
+                    </div>
+                    <div class="client-type">
+                        <form th:action="@{/find_bus_trip{id}(id=${trip.id})}" method="post" th:object="${newTicket}">
+                            <div class="new-client booking">
+                                <div class="client-type-heading">Вітаємо, Петров Іван!</div>
+                                <div class="client-form">
+                                    <div class="form-group">
+                                        <input type="email"
+                                               class="form-account"
+                                               id="exampleInputEmail1"
+                                               placeholder="Email"
+                                               th:field="*{email}"
+                                        >
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text"
+                                               class="form-account"
+                                               id="examplePhoneNumber"
+                                               placeholder="Номер телефону"
+                                               th:field="*{phoneNumber}"
+                                        >
+                                    </div>
+                                    <div class="form-info">На зазначений у цьому полі email буде відправлений лист із підтвердженням бронювання</div>
+                                </div>
+                            </div>
+                            <div class="passenger-data">
+                                <div class="choice-heading">Дані пасажирів</div>
+                                <div class="choice-pass-info booking">Пасажир 1</div>
+                                <div class="avia-booking-form">
+                                    <div class="data-form">
+                                        <div class="form-group">
+                                            <label>Прізвище</label>
+                                            <input type="text"
+                                                   class="form-account"
+                                                   placeholder="Петров"
+                                                   th:field="*{lastName}"
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ім'я</label>
+                                            <input type="text"
+                                                   class="form-account"
+                                                   placeholder="Іван"
+                                                   th:field="*{firstName}"
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Дата народження</label>
+                                            <input type="LocalDate"
+                                                   class="form-account"
+                                                   placeholder="дд.мм.рррр."
+                                                   th:field="*{birthDate}"
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Тип документа</label>
+                                            <select name="document" class="sex-select"  th:field="*{documentType}">
+                                                <option value="PASSPORT">Паспорт</option>
+                                                <option value="FOREIGN_PASSPORT">Закордонний паспорт</option>
+                                                <option value="BIRTH_CERTIFICATE">Свідоцтво про народження</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sms">
+                                <div class="choice-heading">SMS-нагадування</div>
+                                <div class="box insur">
+                                    <input id="five" type="checkbox">
+                                    <span class="check"></span>
+                                    <label for="five" class="labels">Ми нагадаємо про час відправлення автобуса, щоб ви прибули на рейс вчасно.</label>
+                                </div>
+                            </div>
+                            <div class="checkout">
+                                <div class="price">Ціна 540.00 UAH</div>
+                                <input type="submit" value="Оплатити" class="pay-btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div th:replace="basic_inc/footer_main :: footer_main"></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/script/script.js"></script>
+</html>

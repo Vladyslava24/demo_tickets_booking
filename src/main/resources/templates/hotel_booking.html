@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hotel Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/media.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+</head>
+<body>
+<div class="container">
+    <div class="background light">
+        <div th:replace="basic_inc/header :: header"></div>
+        <main>
+            <div class="tickets-info booking">
+                <img src="images/icons/Hotel.svg">
+                <div class="search-info">
+                    <span th:text="${city}"></span>
+                    <span><span th:text="${departure}"></span>/<span th:text="${arrival}"></span></span>
+                </div>
+                <a href="#" class="change-search-btn">Змінити умови пошуку</a>
+            </div>
+            <div class="background dark hotel">
+                <div class="image-section">
+                    <div class="hotel-section">
+                        <div class="hotel-title"  th:text="${hotelName}"></div>
+                    </div>
+                    <div class="img-hotel">
+                        <div class="Slides">
+                            <div class="numbertext">1 / 6</div>
+                            <img src="images/hotel.jpg" style="width:100%">
+                        </div>
+                        <div class="Slides">
+                            <div class="numbertext">2 / 6</div>
+                            <img src="images/hotel1.jpg" style="width:100%">
+                        </div>
+                        <div class="Slides">
+                            <div class="numbertext">3 / 6</div>
+                            <img src="images/hotel2.jpg" style="width:100%">
+                        </div>
+                        <div class="Slides">
+                            <div class="numbertext">4 / 6</div>
+                            <img src="images/hotel3.jpg" style="width:100%">
+                        </div>
+                        <div class="Slides">
+                            <div class="numbertext">5 / 6</div>
+                            <img src="images/hotel4.jpg" style="width:100%">
+                        </div>
+                        <div class="Slides">
+                            <div class="numbertext">6 / 6</div>
+                            <img src="images/hotel5.jpg" style="width:100%">
+                        </div>
+                        <a class="prev" onclick="plusSlides(-1)">❮</a>
+                        <a class="next" onclick="plusSlides(1)">❯</a>
+                        <div class="caption-container">
+                            <p id="caption"></p>
+                        </div>
+                        <div class="row-2">
+                            <div class="column-2">
+                                <img class="demo cursor" src="images/hotel.jpg" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+                            </div>
+                            <div class="column-2">
+                                <img class="demo cursor" src="images/hotel1.jpg" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
+                            </div>
+                            <div class="column-2">
+                                <img class="demo cursor" src="images/hotel2.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
+                            </div>
+                            <div class="column-2">
+                                <img class="demo cursor" src="images/hotel3.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
+                            </div>
+                            <div class="column-2">
+                                <img class="demo cursor" src="images/hotel4.jpg" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">
+                            </div>
+                            <div class="column-2">
+                                <img class="demo cursor" src="images/hotel5.jpg" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="client-type">
+                    <form method="post" th:action="@{/find_hotel{id}(id=${hotel.id})}" th:object="${newBooking}">
+                        <div class="new-client booking">
+                            <div class="client-type-heading">Вітаємо, Петров Іван!</div>
+                            <div class="client-form">
+                                <div class="form-group">
+                                    <input type="email"
+                                           class="form-account"
+                                           id="exampleInputEmail1"
+                                           placeholder="Email"
+                                           th:field="*{email}"
+                                    >
+                                </div>
+                                <div class="form-group">
+                                    <input type="text"
+                                           class="form-account"
+                                           id="examplePhoneNumber"
+                                           placeholder="Номер телефону"
+                                           th:field="*{phoneNumber}"
+                                    >
+                                </div>
+                                <div class="form-info">На зазначений у цьому полі email буде відправлений лист із підтвердженням бронювання</div>
+                            </div>
+                        </div>
+                        <div class="passenger-data">
+                            <div class="choice-heading">Номер 1</div>
+                            <div class="choice-pass-info booking">2 дорослих</div>
+                            <div class="avia-booking-form">
+                                <div class="data-form">
+                                    <div class="form-group">
+                                        <label>Тип номера</label>
+                                        <select name ="apartmentType" class="sex-select"  th:field="*{apartmentType}">
+                                            <option value="LUXURY">Люкс</option>
+                                            <option value="STANDART">Стандарт</option>
+                                        </select>
+                                    </div>
+                                    <div class="guest">
+                                        <div class="choice-pass-info booking">Гість 1</div>
+                                        <div class="form-group">
+                                            <label>Прізвище</label>
+                                            <input type="lastName"
+                                                   class="form-account"
+                                                   placeholder="Петров"
+                                                   th:field="*{lastName}"
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ім'я</label>
+                                            <input type="firstName"
+                                                   class="form-account"
+                                                   placeholder="Іван"
+                                                   th:field="*{firstName}"
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Громадянство</label>
+                                            <input type="text"
+                                                   class="form-account"
+                                                   placeholder="Україна"
+                                                   th:field="*{citizenship}"
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout">
+                            <div class="price">Ціна <span  th:text="${hotel.price}"></span> UAH</div>
+                            <input type="submit" value="Оплатити" class="pay-btn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+        <div th:replace="basic_inc/footer_main :: footer_main"></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/script/script.js"></script>
+</html>
